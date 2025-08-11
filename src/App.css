@@ -1,38 +1,162 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000000;
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Main Container */
+.main-container {
+  display: flex;
+  flex: 1;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Content Section */
+.content-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Scroll Container - Kartlar için ana kutu */
+.scroll-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Webkit scrollbar stilleri */
+.scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Services Grid - 2 sütunlu düzen, kompakt genişlik */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 350px));
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Quick Actions - 3 sütunlu düzen, kompakt */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 180px));
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* QR Section Container */
+.qr-section-container {
+  width: 300px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .main-container {
+    flex-direction: column;
+    padding: 1rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .qr-section-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .scroll-container {
+    max-height: 60vh;
+    max-width: 100%;
+  }
+  
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(250px, 300px));
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+  
+  .scroll-container {
+    padding: 1.5rem;
+    max-height: 50vh;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .quick-actions {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.25rem;
+  }
+  
+  .scroll-container {
+    padding: 1rem;
+  }
+  
+  .services-grid {
+    gap: 0.75rem;
+  }
+  
+  .quick-actions {
+    gap: 0.5rem;
   }
 }
