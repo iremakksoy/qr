@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import ServiceCard from './components/ServiceCard';
-import QuickAction from './components/QuickAction';
 import QRCode from './components/QRCode';
 import HotelInfo from './components/HotelInfo';
+import PromotionalCards from './components/PromotionalCards';
 import './App.css';
 
 function App() {
@@ -13,52 +14,62 @@ function App() {
     {
       id: 'personalize',
       title: 'Personalize Your Stay',
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=300&fit=crop',
+      row: 1,
+      width: 'half'
     },
     {
       id: 'transfer',
       title: 'Transfer',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+      row: 1,
+      width: 'half'
     },
     {
       id: 'hotel-info',
       title: 'Hotel Info',
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop',
+      row: 2,
+      width: 'third'
     },
     {
       id: 'restaurants',
       title: 'Restaurants & Bars',
-      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
+      row: 2,
+      width: 'third'
     },
     {
       id: 'offers',
       title: 'Special Offers',
-      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=300&fit=crop',
+      row: 2,
+      width: 'third'
     },
     {
       id: 'spa-fitness',
       title: 'Spa & Fitness',
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop',
+      row: 3,
+      width: 'full'
+    },
+    {
+      id: 'menu-bars',
+      title: 'Menü ve Barlar',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
+      row: 4,
+      width: 'half'
+    },
+    {
+      id: 'spa-wellness',
+      title: 'Spa & Wellness',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop',
+      row: 4,
+      width: 'half'
     }
   ];
 
-  const quickActions = [
-    {
-      id: 'messages',
-      title: 'Messages',
-      icon: '✉️'
-    },
-    {
-      id: 'mobile-key',
-      title: 'Mobile Key',
-      icon: '📱'
-    },
-    {
-      id: 'view-bill',
-      title: 'View Bill',
-      icon: '📄'
-    }
-  ];
+
 
   const handleServiceClick = (serviceId) => {
     if (serviceId === 'hotel-info') {
@@ -69,51 +80,47 @@ function App() {
     }
   };
 
-  const handleQuickActionClick = (actionId) => {
-    console.log('Quick action clicked:', actionId);
-    // Burada hızlı aksiyon işlemleri yapılabilir
-  };
+
 
   return (
-    <div className="App">
-      <Header />
-      
-      <div className="main-container">
-        <div className="content-section">
-          <div className="scroll-container">
-            <div className="services-grid">
-              {services.map((service) => (
-                <ServiceCard
-                  key={service.id}
-                  image={service.image}
-                  title={service.title}
-                  onClick={() => handleServiceClick(service.id)}
-                />
-              ))}
-            </div>
-            
-            <div className="quick-actions">
-              {quickActions.map((action) => (
-                <QuickAction
-                  key={action.id}
-                  icon={action.icon}
-                  title={action.title}
-                  onClick={() => handleQuickActionClick(action.id)}
-                />
-              ))}
+    <ThemeProvider>
+      <div className="App">
+        <Header />
+        
+        <div className="main-container">
+          <div className="content-section">
+            <PromotionalCards />
+            <div className="scroll-container">
+              <div className="services-grid">
+                {[1, 2, 3, 4].map((row) => (
+                  <div key={row} className={`services-row row-${row}`}>
+                    {services
+                      .filter(service => service.row === row)
+                      .map((service) => (
+                        <ServiceCard
+                          key={service.id}
+                          image={service.image}
+                          title={service.title}
+                          onClick={() => handleServiceClick(service.id)}
+                          className={`service-card-${service.width}`}
+                        />
+                      ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+          
+          <div className="qr-section-container">
+            <QRCode />
+          </div>
         </div>
-        
-        <div className="qr-section-container">
-          <QRCode />
-        </div>
-      </div>
 
-      {showHotelInfo && (
-        <HotelInfo onClose={() => setShowHotelInfo(false)} />
-      )}
-    </div>
+        {showHotelInfo && (
+          <HotelInfo onClose={() => setShowHotelInfo(false)} />
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 

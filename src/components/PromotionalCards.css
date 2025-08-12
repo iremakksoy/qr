@@ -1,0 +1,192 @@
+.promotional-cards-container {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  margin-top: -3rem; /* Kartları sayfanın üstüne çok yaklaştır */
+  display: block; /* Web'de de görünür */
+  padding: 0 1rem; /* Yanlarda padding ekle */
+}
+
+.promotional-cards-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px; /* Köşeleri aynı şekilde yuvarla */
+  margin: 0 auto; /* Ortala */
+  max-width: 800px; /* Service kartları kutusuyla aynı genişlik */
+}
+
+.promotional-cards {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+}
+
+.promotional-card {
+  min-width: 100%;
+  min-height: 280px; /* Dikey boyutu artır */
+  padding: 2.5rem 1rem; /* Yatay padding geri ekle */
+  border-radius: 8px; /* Köşeleri aynı şekilde yuvarla */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.card-subtitle {
+  display: none; /* Subtitle'ı gizle */
+}
+
+.card-description {
+  font-size: 0.85rem;
+  color: #f8f9fa;
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-secondary);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  box-shadow: 0 6px 25px var(--shadow);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.prev-button {
+  left: 8px;
+}
+
+.next-button {
+  right: 8px;
+}
+
+.card-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: -0.2rem;
+}
+
+.indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background: var(--text-primary);
+  transform: scale(1.1);
+}
+
+/* Mobil cihazlarda özel ayarlar */
+@media (max-width: 768px) {
+  .promotional-cards-container {
+    display: block;
+  }
+  
+  .promotional-cards-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  
+  .promotional-card {
+    min-width: 100%;
+    padding: 2rem 0.5rem; /* Mobilde de yatay padding ekle */
+    min-height: 220px;
+  }
+  
+  .card-title {
+    font-size: 1.3rem;
+  }
+  
+  .card-subtitle {
+    display: none; /* Mobilde de subtitle'ı gizle */
+  }
+  
+  .card-description {
+    font-size: 0.8rem;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nav-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}

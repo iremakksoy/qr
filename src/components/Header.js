@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 const Header = () => {
@@ -49,13 +50,12 @@ const Header = () => {
       <div className="header-center">
         <div className="logo">
           <div className="logo-text-container">
-            <span className="logo-text-main">DOSINIA</span>
-            <span className="logo-text-sub">LUXURY RESORT</span>
           </div>
         </div>
       </div>
       
       <div className="header-right">
+        <ThemeToggle />
         <button className="menu-button">
           <span></span>
           <span></span>

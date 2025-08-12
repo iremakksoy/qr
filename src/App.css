@@ -7,10 +7,11 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #000000;
+  background: var(--bg-primary);
   min-height: 100vh;
-  color: white;
+  color: var(--text-primary);
   overflow-x: hidden;
+  transition: all 0.3s ease;
 }
 
 .App {
@@ -41,15 +42,15 @@ body {
 
 /* Scroll Container - Kartlar için ana kutu */
 .scroll-container {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-secondary);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   padding: 2rem;
   max-height: 70vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  scrollbar-color: var(--border-secondary) transparent;
   max-width: 800px;
   width: 100%;
 }
@@ -64,21 +65,54 @@ body {
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--border-secondary);
   border-radius: 4px;
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--border);
 }
 
-/* Services Grid - 2 sütunlu düzen, kompakt genişlik */
+/* Services Grid - Yeni satır bazlı düzen */
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 350px));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   width: 100%;
+}
+
+.services-row {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.services-row.row-1 {
   justify-content: center;
+}
+
+.services-row.row-2 {
+  justify-content: center;
+}
+
+.services-row.row-3,
+.services-row.row-4 {
+  justify-content: center;
+}
+
+.service-card-half {
+  flex: 0 0 calc(50% - 0.75rem);
+  max-width: 250px;
+}
+
+.service-card-third {
+  flex: 0 0 calc(33.333% - 1rem);
+  max-width: 160px;
+}
+
+.service-card-full {
+  flex: 0 0 100%;
+  max-width: 520px;
 }
 
 /* Quick Actions - 3 sütunlu düzen, kompakt */

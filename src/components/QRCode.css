@@ -3,10 +3,10 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-secondary);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
 }
 
 .qr-container {
@@ -84,23 +84,16 @@
 }
 
 .qr-text {
-  color: white;
+  color: var(--text-primary);
   font-size: 0.9rem;
   text-align: center;
   line-height: 1.4;
   max-width: 250px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 4px var(--shadow);
 }
 
 @media (max-width: 768px) {
-  .qr-code {
-    width: 150px;
-    height: 150px;
-    padding: 15px;
-  }
-  
-  .qr-text {
-    font-size: 0.8rem;
-    max-width: 200px;
+  .qr-section {
+    display: none; /* Mobil cihazlarda QR bölümünü tamamen gizle */
   }
 } 

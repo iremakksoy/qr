@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import QRCode from './QRCode';
 import './HotelInfo.css';
 
 const HotelInfo = ({ onClose }) => {
+  const [loadedImages, setLoadedImages] = useState({});
+
+  useEffect(() => {
+    // Her resim için animasyonu başlat
+    const imageIds = hotelInfoCards.map(card => card.id);
+    const timers = imageIds.map((id, index) => {
+      return setTimeout(() => {
+        setLoadedImages(prev => ({ ...prev, [id]: true }));
+      }, index * 400); // Her resim 400ms arayla yüklensin
+    });
+
+    return () => timers.forEach(timer => clearTimeout(timer));
+  }, []);
+
   const hotelInfoCards = [
     {
       id: 'about-hotel',
@@ -39,35 +53,39 @@ const HotelInfo = ({ onClose }) => {
   return (
     <div className="hotel-info-overlay">
       <div className="hotel-info-container">
-        <div className="hotel-info-header">
-          <button className="back-button" onClick={onClose}>
-            <span>←</span>
-          </button>
-          <h2>Hotel Info</h2>
-          <button className="menu-button">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-        
         <div className="hotel-info-content">
           <div className="scroll-container">
+            <div className="hotel-info-header">
+              <button className="back-button" onClick={onClose}>
+                <span>←</span>
+              </button>
+              <h2>Hotel Info</h2>
+              <button className="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+            
             <div className="services-grid">
-              {hotelInfoCards.map((card) => (
-                <div 
-                  key={card.id} 
-                  className="service-card"
-                  onClick={() => handleCardClick(card.id)}
-                >
-                  <div className="service-image">
-                    <img src={card.image} alt={card.title} />
-                  </div>
-                  <div className="service-title">
-                    {card.title}
-                  </div>
-                </div>
-              ))}
+                             {hotelInfoCards.map((card) => (
+                 <div 
+                   key={card.id} 
+                   className="service-card"
+                   onClick={() => handleCardClick(card.id)}
+                 >
+                   <div className="service-image">
+                     <img 
+                       src={card.image} 
+                       alt={card.title} 
+                       className={`hotel-info-image ${loadedImages[card.id] ? 'loaded' : ''}`}
+                     />
+                   </div>
+                   <div className="service-title">
+                     {card.title}
+                   </div>
+                 </div>
+               ))}
             </div>
           </div>
           

@@ -1,9 +1,9 @@
 import React from 'react';
 import './ServiceCard.css';
 
-const ServiceCard = ({ image, title, onClick }) => {
+const ServiceCard = ({ image, title, onClick, className }) => {
   return (
-    <div className="service-card" onClick={onClick}>
+    <div className={`service-card ${className || ''}`} onClick={onClick}>
       <div className="service-image">
         <img src={image} alt={title} />
       </div>
