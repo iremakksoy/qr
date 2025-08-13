@@ -28,6 +28,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  filter: brightness(0.7); /* Resimlere karartma uygula */
 }
 
 .service-card:hover .service-image img {
@@ -35,12 +36,19 @@
 }
 
 .service-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 0.3rem; /* Gri planın dikey boyutunu daha da azalt */
-  color: var(--text-primary);
-  font-size: 0.8rem; /* Font boyutunu daha da küçült */
-  font-weight: 500;
+  color: white; /* Yazıyı beyaz yap */
+  font-size: 0.65rem; /* Font boyutunu daha da küçült */
+  font-family: 'Montserrat', sans-serif; /* Montserrat fontu */
+  font-weight: 300; /* En ince font ağırlığı */
   text-align: center;
-  text-shadow: 0 2px 4px var(--shadow);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Siyah gölge ekle */
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%); /* Arka plan gradyanı */
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
@@ -53,7 +61,9 @@
   }
   
   .service-title {
-    font-size: 0.7rem;
+    font-size: 0.6rem; /* Mobilde daha da küçük */
+    font-family: 'Montserrat', sans-serif; /* Montserrat fontu */
+    font-weight: 300; /* En ince font ağırlığı */
     padding: 0.25rem 0.75rem; /* Mobil için de gri planın dikey boyutunu daha da azalt */
   }
 } 

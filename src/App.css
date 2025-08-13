@@ -159,11 +159,19 @@ body {
 @media (max-width: 768px) {
   .main-container {
     padding: 0.5rem;
+    gap: 0.1rem; /* Mobilde gap'i daha da azalt */
+  }
+  
+  .content-section {
+    padding-top: 0.1rem; /* Mobilde üst padding'i daha da azalt */
   }
   
   .scroll-container {
-    padding: 1.5rem;
-    max-height: 50vh;
+    background: none; /* Kutunun arka planını kaldır */
+    border: none; /* Kutunun kenarlığını kaldır */
+    box-shadow: none; /* Kutunun gölgesini kaldır */
+    padding: 0; /* Kutunun iç boşluğunu kaldır */
+    max-height: none; /* Yükseklik sınırını kaldır */
   }
   
   .services-grid {

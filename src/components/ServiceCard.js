@@ -6,9 +6,9 @@ const ServiceCard = ({ image, title, onClick, className }) => {
     <div className={`service-card ${className || ''}`} onClick={onClick}>
       <div className="service-image">
         <img src={image} alt={title} />
-      </div>
-      <div className="service-title">
-        {title}
+        <div className="service-title">
+          {title}
+        </div>
       </div>
     </div>
   );

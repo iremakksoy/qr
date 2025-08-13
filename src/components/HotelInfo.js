@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import QRCode from './QRCode';
 import './HotelInfo.css';
 
 const HotelInfo = ({ onClose }) => {
-  const [loadedImages, setLoadedImages] = useState({});
-
-  useEffect(() => {
-    // Her resim için animasyonu başlat
-    const imageIds = hotelInfoCards.map(card => card.id);
-    const timers = imageIds.map((id, index) => {
-      return setTimeout(() => {
-        setLoadedImages(prev => ({ ...prev, [id]: true }));
-      }, index * 400); // Her resim 400ms arayla yüklensin
-    });
-
-    return () => timers.forEach(timer => clearTimeout(timer));
-  }, []);
 
   const hotelInfoCards = [
     {
@@ -78,7 +65,6 @@ const HotelInfo = ({ onClose }) => {
                      <img 
                        src={card.image} 
                        alt={card.title} 
-                       className={`hotel-info-image ${loadedImages[card.id] ? 'loaded' : ''}`}
                      />
                    </div>
                    <div className="service-title">
