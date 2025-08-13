@@ -4,11 +4,13 @@ import Header from './components/Header';
 import ServiceCard from './components/ServiceCard';
 import QRCode from './components/QRCode';
 import HotelInfo from './components/HotelInfo';
+import SpaFitness from './components/SpaFitness';
 import PromotionalCards from './components/PromotionalCards';
 import './App.css';
 
 function App() {
   const [showHotelInfo, setShowHotelInfo] = useState(false);
+  const [showSpaFitness, setShowSpaFitness] = useState(false);
 
   const services = [
     {
@@ -41,15 +43,15 @@ function App() {
     },
     {
       id: 'offers',
-      title: 'Special Offers',
-      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=300&fit=crop',
+      title: 'Spa & Fitness',
+      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop',
       row: 2,
       width: 'third'
     },
     {
       id: 'spa-fitness',
-      title: 'Spa & Fitness',
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop',
+      title: 'Etkinlikler',
+      image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=300&fit=crop',
       row: 3,
       width: 'full'
     },
@@ -74,6 +76,8 @@ function App() {
   const handleServiceClick = (serviceId) => {
     if (serviceId === 'hotel-info') {
       setShowHotelInfo(true);
+    } else if (serviceId === 'offers') {
+      setShowSpaFitness(true);
     } else {
       console.log('Service clicked:', serviceId);
       // Burada diğer servis detay sayfalarına yönlendirme yapılabilir
@@ -118,6 +122,9 @@ function App() {
 
         {showHotelInfo && (
           <HotelInfo onClose={() => setShowHotelInfo(false)} />
+        )}
+        {showSpaFitness && (
+          <SpaFitness onClose={() => setShowSpaFitness(false)} />
         )}
       </div>
     </ThemeProvider>

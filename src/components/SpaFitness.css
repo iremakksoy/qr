@@ -1,4 +1,4 @@
-.hotel-info-overlay {
+.spa-fitness-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@
   }
 }
 
-.hotel-info-container {
+.spa-fitness-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@
   }
 }
 
-.hotel-info-header {
+.spa-fitness-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +70,7 @@
   background: var(--bg-tertiary);
 }
 
-.hotel-info-header h2 {
+.spa-fitness-header h2 {
   color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: 600;
@@ -102,7 +102,7 @@
   transition: all 0.3s ease;
 }
 
-.hotel-info-content {
+.spa-fitness-content {
   flex: 1;
   padding: 1.5rem;
   display: flex;
@@ -128,7 +128,7 @@
   flex: 1;
 }
 
-/* Services Grid - Hotel Info için tek sütun */
+/* Services Grid - Spa & Fitness için tek sütun */
 .services-grid {
   display: flex;
   flex-direction: column;
@@ -137,14 +137,66 @@
   align-items: center;
 }
 
-/* QR Section Container - Ana sayfadaki gibi */
-.qr-section-container {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.service-card {
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  max-width: 350px;
+  width: 100%;
+  position: relative;
 }
+
+.service-card-full {
+  flex: 0 0 100%;
+  max-width: 750px;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow);
+  background: var(--bg-secondary);
+}
+
+.service-image {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  filter: brightness(0.7);
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.05);
+}
+
+.service-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.3rem;
+  color: white;
+  font-size: 0.65rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+  z-index: 2;
+}
+
+
 
 .hotel-info-card {
   background: var(--bg-tertiary);
@@ -178,8 +230,6 @@
   object-fit: cover;
   transition: transform 0.3s ease;
 }
-
-
 
 .card-overlay {
   position: absolute;
@@ -231,17 +281,17 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .hotel-info-container {
+  .spa-fitness-container {
     max-width: 100%;
     height: 100vh;
     margin: 0;
   }
   
-  .hotel-info-header {
+  .spa-fitness-header {
     padding: 1rem;
   }
   
-  .hotel-info-content {
+  .spa-fitness-content {
     padding: 0;
     flex-direction: column;
     height: 100%;
@@ -271,18 +321,14 @@
     left: 0.75rem;
     right: 0.75rem;
   }
-  
-  .qr-section-container {
-    width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
-  .hotel-info-header {
+  .spa-fitness-header {
     padding: 0.75rem;
   }
   
-  .hotel-info-content {
+  .spa-fitness-content {
     padding: 0;
   }
   
@@ -298,7 +344,7 @@
   }
 }
 
-/* About Hotel Modal/Page Styles */
+/* About Hotel Modal/Page Styles - Spa & Fitness için de kullanılacak */
 .about-hotel-overlay {
   position: fixed;
   top: 0;
@@ -501,4 +547,4 @@ body.dark-theme .map-button:hover {
 .about-hotel-container.mobile .map-button:hover {
   background: var(--bg-secondary);
   box-shadow: 0 4px 12px var(--shadow);
-} 
+}
