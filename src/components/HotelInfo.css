@@ -41,6 +41,17 @@
   }
 }
 
+@keyframes slideUpFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hotel-info-header {
   display: flex;
   justify-content: space-between;
@@ -314,8 +325,9 @@
 }
 
 .about-hotel-overlay.mobile {
-  background: var(--bg-primary);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1500;
+  animation: slideUpFromBottom 0.4s ease-out;
 }
 
 .about-hotel-container {
@@ -335,14 +347,15 @@ body.dark-theme .about-hotel-container {
 }
 
 .about-hotel-container.mobile {
-  background: var(--bg-primary);
-  border-radius: 0;
+  background: transparent;
+  border-radius: 12px 12px 0 0;
   max-width: 100vw;
-  max-height: 100vh;
+  max-height: 30vh;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
+  margin: 70vh auto 0 auto;
 }
 
 .close-button {
@@ -389,7 +402,7 @@ body.dark-theme .about-hotel-container {
 }
 
 .about-hotel-container.mobile .about-hotel-image {
-  height: 300px;
+  height: 200px;
 }
 
 .about-hotel-image img {
@@ -410,8 +423,8 @@ body.dark-theme .about-hotel-content {
 }
 
 .about-hotel-container.mobile .about-hotel-content {
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: transparent;
+  color: white;
   flex: 1;
   padding: 1.5rem;
   overflow-y: auto;
@@ -433,6 +446,7 @@ body.dark-theme .about-hotel-content h2 {
 .about-hotel-container.mobile .about-hotel-content h2 {
   font-size: 1.4rem;
   margin: 0 0 1rem 0;
+  color: white;
 }
 
 .about-hotel-content p {
@@ -451,7 +465,7 @@ body.dark-theme .about-hotel-content p {
 }
 
 .about-hotel-container.mobile .about-hotel-content p {
-  color: var(--text-secondary);
+  color: white;
   font-size: 0.85rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
@@ -491,9 +505,9 @@ body.dark-theme .map-button:hover {
 }
 
 .about-hotel-container.mobile .map-button {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: #000000;
+  color: white;
+  border: 1px solid #333;
   width: 100%;
   margin-top: 1rem;
 }
