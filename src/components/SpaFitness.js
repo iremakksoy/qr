@@ -5,6 +5,59 @@ import './SpaFitness.css';
 const SpaFitness = ({ onClose }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
+  // Modal içerikleri
+  const modalContents = {
+    'massage-beauty': {
+      paragraphs: [
+        "Experience ultimate relaxation with our professional massage and beauty treatments. Our skilled therapists provide a range of therapeutic massages designed to relieve stress and promote wellness.",
+        "From traditional Swedish massage to deep tissue therapy, our treatments are tailored to your individual needs. We also offer specialized beauty treatments including facials, body wraps, and aromatherapy sessions."
+      ]
+    },
+    'spa-ritual': {
+      paragraphs: [
+        "Indulge in the luxurious Spa Ritual by L'Occitane, featuring premium natural ingredients from Provence. This exclusive treatment combines traditional techniques with modern wellness practices.",
+        "Each ritual is carefully crafted to provide a complete sensory experience, from the aromatic essential oils to the gentle massage techniques. Perfect for those seeking a truly indulgent spa experience."
+      ]
+    },
+    'gym': {
+      paragraphs: [
+        "Stay active during your stay with our state-of-the-art fitness center. Equipped with the latest cardio and strength training equipment, our gym offers everything you need for a complete workout.",
+        "Open 24/7 for your convenience, our fitness center features personal trainers, group classes, and a variety of equipment to suit all fitness levels. Enjoy panoramic views while you exercise."
+      ]
+    },
+    'sauna': {
+      paragraphs: [
+        "Relax and detoxify in our traditional Finnish sauna. Our sauna facilities provide the perfect environment for deep relaxation and stress relief, helping you unwind after a long day.",
+        "The sauna is maintained at optimal temperature and humidity levels for maximum therapeutic benefits. Towels, robes, and refreshments are provided for your comfort and convenience."
+      ]
+    }
+  };
+
+  // Modal yüksekliğini hesaplayan fonksiyon
+  const calculateModalHeight = (cardId) => {
+    const content = modalContents[cardId];
+    if (!content) return 70; // Varsayılan %70
+
+    const totalLength = content.paragraphs.reduce((total, paragraph) => total + paragraph.length, 0);
+
+    // Uzunluk bazında yükseklik hesaplama (%50-%80 arası)
+    let heightPercentage;
+
+    if (totalLength <= 150) {
+      heightPercentage = 50; // Kısa içerik
+    } else if (totalLength <= 250) {
+      heightPercentage = 60; // Orta kısa içerik
+    } else if (totalLength <= 350) {
+      heightPercentage = 70; // Orta içerik
+    } else if (totalLength <= 450) {
+      heightPercentage = 75; // Orta uzun içerik
+    } else {
+      heightPercentage = 80; // Uzun içerik
+    }
+
+    return heightPercentage;
+  };
+
   const spaFitnessCards = [
     {
       id: 'massage-beauty',
@@ -87,7 +140,10 @@ const SpaFitness = ({ onClose }) => {
       {/* Massage & Beauty Treatments Modal/Page */}
       {selectedCard === 'massage-beauty' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('massage-beauty')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=400&fit=crop" 
@@ -118,7 +174,10 @@ const SpaFitness = ({ onClose }) => {
       {/* Spa Ritual by L'Occitane Modal/Page */}
       {selectedCard === 'spa-ritual' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('spa-ritual')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop" 
@@ -149,7 +208,10 @@ const SpaFitness = ({ onClose }) => {
       {/* Gym Modal/Page */}
       {selectedCard === 'gym' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('gym')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop" 
@@ -179,7 +241,10 @@ const SpaFitness = ({ onClose }) => {
       {/* Sauna Modal/Page */}
       {selectedCard === 'sauna' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('sauna')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=400&fit=crop" 

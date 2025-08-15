@@ -5,12 +5,14 @@ import ServiceCard from './components/ServiceCard';
 import QRCode from './components/QRCode';
 import HotelInfo from './components/HotelInfo';
 import SpaFitness from './components/SpaFitness';
+import Events from './components/Events';
 import PromotionalCards from './components/PromotionalCards';
 import './App.css';
 
 function App() {
   const [showHotelInfo, setShowHotelInfo] = useState(false);
   const [showSpaFitness, setShowSpaFitness] = useState(false);
+  const [showEvents, setShowEvents] = useState(false);
 
   const services = [
     {
@@ -78,6 +80,8 @@ function App() {
       setShowHotelInfo(true);
     } else if (serviceId === 'offers') {
       setShowSpaFitness(true);
+    } else if (serviceId === 'spa-fitness') {
+      setShowEvents(true);
     } else {
       console.log('Service clicked:', serviceId);
       // Burada diğer servis detay sayfalarına yönlendirme yapılabilir
@@ -125,6 +129,9 @@ function App() {
         )}
         {showSpaFitness && (
           <SpaFitness onClose={() => setShowSpaFitness(false)} />
+        )}
+        {showEvents && (
+          <Events onClose={() => setShowEvents(false)} />
         )}
       </div>
     </ThemeProvider>

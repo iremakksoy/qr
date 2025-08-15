@@ -360,7 +360,7 @@
 }
 
 .about-hotel-overlay.mobile {
-  background: var(--bg-primary);
+  background: transparent;
   z-index: 1500;
 }
 

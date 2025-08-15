@@ -33,6 +33,84 @@ const HotelInfo = ({ onClose }) => {
     }
   ];
 
+  // Modal içerikleri ve uzunlukları
+  const modalContents = {
+    'about-hotel': {
+      title: 'About Hotel',
+      paragraphs: [
+        'Welcome to our luxurious hotel in Dubai Marina with stunning waterfront views.',
+        'Experience modern comfort and exceptional hospitality in the heart of Dubai.'
+      ],
+      buttonText: 'MAP'
+    },
+    'check-in-out': {
+      title: 'Check-in/out Information',
+      paragraphs: [
+        'Check-in time is 3:00 PM and check-out time is 11:00 AM.',
+        'Early check-in and late check-out available upon request and availability.',
+        'Express check-in service available for returning guests and VIP members.'
+      ],
+      buttonText: 'BOOK NOW'
+    },
+    'internet-services': {
+      title: 'Internet Services',
+      paragraphs: [
+        'High-speed WiFi available throughout the hotel at no additional cost.',
+        'Premium internet packages available for business travelers.',
+        '24/7 technical support for all connectivity issues.',
+        'Meeting rooms equipped with dedicated high-speed connections.'
+      ],
+      buttonText: 'CONNECT'
+    },
+    'kids-club': {
+      title: 'Kids Club',
+      paragraphs: [
+        'Fun and safe activities for children aged 4-12 years old.',
+        'Supervised play areas and educational programs available daily.',
+        'Special themed events and workshops during weekends.',
+        'Professional childcare staff with certified training.',
+        'Indoor and outdoor play zones with age-appropriate equipment.'
+      ],
+      buttonText: 'JOIN NOW'
+    },
+    'directions-contacts': {
+      title: 'Directions & Contacts',
+      paragraphs: [
+        'Located in Dubai Marina, easily accessible by metro and taxi.',
+        'Contact us at +971 4 123 4567 or info@hotel.com for assistance.',
+        'Free shuttle service to major attractions and shopping centers.',
+        'Valet parking available 24/7 for hotel guests.',
+        'Concierge desk open daily from 6:00 AM to 11:00 PM.'
+      ],
+      buttonText: 'CALL NOW'
+    }
+  };
+
+  // Modal yüksekliğini hesaplayan fonksiyon
+  const calculateModalHeight = (cardId) => {
+    const content = modalContents[cardId];
+    if (!content) return 70; // Varsayılan %70
+
+    const totalLength = content.paragraphs.reduce((total, paragraph) => total + paragraph.length, 0);
+    
+    // Uzunluk bazında yükseklik hesaplama (%50-%80 arası)
+    let heightPercentage;
+    
+    if (totalLength <= 150) {
+      heightPercentage = 50; // Kısa içerik
+    } else if (totalLength <= 250) {
+      heightPercentage = 60; // Orta kısa içerik
+    } else if (totalLength <= 350) {
+      heightPercentage = 70; // Orta içerik
+    } else if (totalLength <= 450) {
+      heightPercentage = 75; // Orta uzun içerik
+    } else {
+      heightPercentage = 80; // Uzun içerik
+    }
+    
+    return heightPercentage;
+  };
+
   const handleCardClick = (cardId) => {
     setSelectedCard(cardId);
   };
@@ -83,14 +161,17 @@ const HotelInfo = ({ onClose }) => {
           
           <div className="qr-section-container">
             <QRCode />
-          </div>
+                    </div>
         </div>
       </div>
 
-      {/* About Hotel Modal/Page */}
+      {/* About Hotel Modal */}
       {selectedCard === 'about-hotel' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('about-hotel')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=400&fit=crop" 
@@ -101,125 +182,125 @@ const HotelInfo = ({ onClose }) => {
               </button>
             </div>
             
-                         <div className="about-hotel-content">
-               <h2>About Hotel</h2>
-               <p>
-                 Welcome to our luxurious hotel located on the bustling Dubai Marina. 
-                 With stunning views of the waterfront and the iconic skyline, our hotel 
-                 offers a perfect blend of modern comfort and unparalleled hospitality.
-               </p>
-               <button className="map-button">MAP</button>
-             </div>
+            <div className="about-hotel-content">
+              <h2>{modalContents['about-hotel'].title}</h2>
+              {modalContents['about-hotel'].paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <button className="map-button">{modalContents['about-hotel'].buttonText}</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Check In Information Modal/Page */}
+      {/* Check-in/out Information Modal */}
       {selectedCard === 'check-in-out' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('check-in-out')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=400&fit=crop" 
-                alt="Hotel Reception" 
+                alt="Check-in/out" 
               />
               <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
                 <span>×</span>
               </button>
             </div>
             
-                         <div className="about-hotel-content">
-               <h2>Check-in/out Information</h2>
-               <p>
-                 Check-in time is 3:00 PM and check-out time is 12:00 PM. Early check-in 
-                 and late check-out are subject to availability and may incur additional charges. 
-                 Please contact our front desk for special arrangements.
-               </p>
-               <button className="map-button">CONTACT</button>
-             </div>
+            <div className="about-hotel-content">
+              <h2>{modalContents['check-in-out'].title}</h2>
+              {modalContents['check-in-out'].paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <button className="map-button">{modalContents['check-in-out'].buttonText}</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Internet Services Modal/Page */}
+      {/* Internet Services Modal */}
       {selectedCard === 'internet-services' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('internet-services')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=400&fit=crop" 
-                alt="WiFi Network" 
+                alt="Internet Services" 
               />
               <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
                 <span>×</span>
               </button>
             </div>
             
-                         <div className="about-hotel-content">
-               <h2>Internet Services</h2>
-               <p>
-                 Enjoy high-speed WiFi throughout the entire hotel property. Our complimentary 
-                 internet service provides speeds up to 100 Mbps, perfect for streaming, 
-                 video calls, and business needs. Network name: "Hotel_Guest_WiFi" - Password: "Welcome2024".
-               </p>
-             </div>
+            <div className="about-hotel-content">
+              <h2>{modalContents['internet-services'].title}</h2>
+              {modalContents['internet-services'].paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <button className="map-button">{modalContents['internet-services'].buttonText}</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Kids Club Modal/Page */}
+      {/* Kids Club Modal */}
       {selectedCard === 'kids-club' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('kids-club')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&h=400&fit=crop" 
-                alt="Kids Play Area" 
+                alt="Kids Club" 
               />
               <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
                 <span>×</span>
               </button>
             </div>
             
-                         <div className="about-hotel-content">
-               <h2>Kids Club</h2>
-               <p>
-                 Our Kids Club offers a safe and entertaining environment for children aged 3-12. 
-                 Open daily from 9:00 AM to 6:00 PM, our supervised play area features games, 
-                 crafts, and educational activities. Professional childcare staff ensures your 
-                 children have a memorable and fun experience.
-               </p>
-             </div>
+            <div className="about-hotel-content">
+              <h2>{modalContents['kids-club'].title}</h2>
+              {modalContents['kids-club'].paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <button className="map-button">{modalContents['kids-club'].buttonText}</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Directions & Contacts Modal/Page */}
+      {/* Directions & Contacts Modal */}
       {selectedCard === 'directions-contacts' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
-          <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
+          <div 
+            className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}
+            style={isMobile ? { height: `${calculateModalHeight('directions-contacts')}vh` } : {}}
+          >
             <div className="about-hotel-image">
               <img 
                 src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=400&fit=crop" 
-                alt="Hotel Location" 
+                alt="Directions & Contacts" 
               />
               <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
                 <span>×</span>
               </button>
             </div>
             
-                         <div className="about-hotel-content">
-               <h2>Directions & Contacts</h2>
-               <p>
-                 Located in the heart of Dubai Marina, our hotel is easily accessible from 
-                 Dubai International Airport (DXB) - approximately 25 minutes by car. 
-                 Address: Dubai Marina, Sheikh Zayed Road, Dubai, UAE. Phone: +971 4 XXX XXXX.
-               </p>
-               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                 <button className="map-button">CALL US</button>
-                 <button className="map-button">WHATSAPP US</button>
-               </div>
-             </div>
+            <div className="about-hotel-content">
+              <h2>{modalContents['directions-contacts'].title}</h2>
+              {modalContents['directions-contacts'].paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+              <button className="map-button">{modalContents['directions-contacts'].buttonText}</button>
+            </div>
           </div>
         </div>
       )}
