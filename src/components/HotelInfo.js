@@ -61,23 +61,23 @@ const HotelInfo = ({ onClose }) => {
             </div>
             
             <div className="services-grid">
-                             {hotelInfoCards.map((card) => (
-                 <div 
-                   key={card.id} 
-                   className="service-card"
-                   onClick={() => handleCardClick(card.id)}
-                 >
-                   <div className="service-image">
-                     <img 
-                       src={card.image} 
-                       alt={card.title} 
-                     />
-                   </div>
-                   <div className="service-title">
-                     {card.title}
-                   </div>
-                 </div>
-               ))}
+              {hotelInfoCards.map((card) => (
+                <div 
+                  key={card.id} 
+                  className="service-card"
+                  onClick={() => handleCardClick(card.id)}
+                >
+                  <div className="service-image">
+                    <img 
+                      src={card.image} 
+                      alt={card.title} 
+                    />
+                  </div>
+                  <div className="service-title">
+                    {card.title}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -91,30 +91,25 @@ const HotelInfo = ({ onClose }) => {
       {selectedCard === 'about-hotel' && (
         <div className={`about-hotel-overlay ${isMobile ? 'mobile' : 'desktop'}`}>
           <div className={`about-hotel-container ${isMobile ? 'mobile' : 'desktop'}`}>
-                         <div className="about-hotel-image">
-               <img 
-                 src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=400&fit=crop" 
-                 alt="Hotel Skyline" 
-               />
-               <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
-                 <span>×</span>
-               </button>
-             </div>
-            
-            <div className="about-hotel-content">
-              <h2>About Hotel</h2>
-              <p>
-                Welcome to our luxurious hotel located on the bustling Dubai Marina. 
-                With stunning views of the waterfront and the iconic skyline, our hotel 
-                offers a perfect blend of modern comfort and unparalleled hospitality.
-              </p>
-              <p>
-                Whether you're indulging in our exquisite dining options, unwinding at 
-                the poolside, or exploring the vibrant city of Dubai, our hotel promises 
-                a memorable experience for every guest.
-              </p>
-              <button className="map-button">MAP</button>
+            <div className="about-hotel-image">
+              <img 
+                src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=400&fit=crop" 
+                alt="Hotel Skyline" 
+              />
+              <button className={`close-button ${isMobile ? 'mobile' : 'desktop'}`} onClick={handleCloseModal}>
+                <span>×</span>
+              </button>
             </div>
+            
+                         <div className="about-hotel-content">
+               <h2>About Hotel</h2>
+               <p>
+                 Welcome to our luxurious hotel located on the bustling Dubai Marina. 
+                 With stunning views of the waterfront and the iconic skyline, our hotel 
+                 offers a perfect blend of modern comfort and unparalleled hospitality.
+               </p>
+               <button className="map-button">MAP</button>
+             </div>
           </div>
         </div>
       )}
@@ -133,20 +128,15 @@ const HotelInfo = ({ onClose }) => {
               </button>
             </div>
             
-            <div className="about-hotel-content">
-              <h2>Check-in/out Information</h2>
-              <p>
-                Check-in time is 3:00 PM and check-out time is 12:00 PM. Early check-in 
-                and late check-out are subject to availability and may incur additional charges. 
-                Please contact our front desk for special arrangements.
-              </p>
-              <p>
-                For a smooth check-in process, please have your valid ID or passport ready. 
-                We also offer express check-in services for returning guests and premium members. 
-                Luggage storage is available for early arrivals and late departures.
-              </p>
-              <button className="map-button">CONTACT</button>
-            </div>
+                         <div className="about-hotel-content">
+               <h2>Check-in/out Information</h2>
+               <p>
+                 Check-in time is 3:00 PM and check-out time is 12:00 PM. Early check-in 
+                 and late check-out are subject to availability and may incur additional charges. 
+                 Please contact our front desk for special arrangements.
+               </p>
+               <button className="map-button">CONTACT</button>
+             </div>
           </div>
         </div>
       )}
@@ -165,19 +155,14 @@ const HotelInfo = ({ onClose }) => {
               </button>
             </div>
             
-                                                   <div className="about-hotel-content">
-                <h2>Internet Services</h2>
-                <p>
-                  Enjoy high-speed WiFi throughout the entire hotel property. Our complimentary 
-                  internet service provides speeds up to 100 Mbps, perfect for streaming, 
-                  video calls, and business needs. Premium WiFi packages are also available.
-                </p>
-                <p>
-                  Network name: "Hotel_Guest_WiFi" - Password: "Welcome2024". For technical 
-                  support or premium internet packages, please contact our IT department 
-                  or visit the front desk. Business center computers are also available.
-                </p>
-              </div>
+                         <div className="about-hotel-content">
+               <h2>Internet Services</h2>
+               <p>
+                 Enjoy high-speed WiFi throughout the entire hotel property. Our complimentary 
+                 internet service provides speeds up to 100 Mbps, perfect for streaming, 
+                 video calls, and business needs. Network name: "Hotel_Guest_WiFi" - Password: "Welcome2024".
+               </p>
+             </div>
           </div>
         </div>
       )}
@@ -196,20 +181,15 @@ const HotelInfo = ({ onClose }) => {
               </button>
             </div>
             
-                                                   <div className="about-hotel-content">
-                <h2>Kids Club</h2>
-                <p>
-                  Our Kids Club offers a safe and entertaining environment for children aged 3-12. 
-                  Open daily from 9:00 AM to 6:00 PM, our supervised play area features games, 
-                  crafts, and educational activities. Professional childcare staff ensures your 
-                  children have a memorable and fun experience.
-                </p>
-                <p>
-                  Activities include arts and crafts, indoor games, movie time, and outdoor 
-                  playground access. Parents can enjoy some relaxation time while their children 
-                  are safely entertained. Advance booking is recommended for peak seasons.
-                </p>
-              </div>
+                         <div className="about-hotel-content">
+               <h2>Kids Club</h2>
+               <p>
+                 Our Kids Club offers a safe and entertaining environment for children aged 3-12. 
+                 Open daily from 9:00 AM to 6:00 PM, our supervised play area features games, 
+                 crafts, and educational activities. Professional childcare staff ensures your 
+                 children have a memorable and fun experience.
+               </p>
+             </div>
           </div>
         </div>
       )}
@@ -233,13 +213,7 @@ const HotelInfo = ({ onClose }) => {
                <p>
                  Located in the heart of Dubai Marina, our hotel is easily accessible from 
                  Dubai International Airport (DXB) - approximately 25 minutes by car. 
-                 We're also conveniently located near major attractions and business districts, 
-                 with excellent public transportation connections.
-               </p>
-               <p>
-                 Address: Dubai Marina, Sheikh Zayed Road, Dubai, UAE. Phone: +971 4 XXX XXXX. 
-                 Email: info@hotelname.com. For reservations: +971 4 XXX XXXX. 
-                 Emergency contact: +971 4 XXX XXXX (24/7 available).
+                 Address: Dubai Marina, Sheikh Zayed Road, Dubai, UAE. Phone: +971 4 XXX XXXX.
                </p>
                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                  <button className="map-button">CALL US</button>
