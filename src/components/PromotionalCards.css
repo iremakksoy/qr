@@ -49,10 +49,10 @@
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
-  padding-top: 2rem;
+  padding-bottom: 3.5rem;
 }
 
 .card-title {

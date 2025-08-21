@@ -6,6 +6,8 @@ import QRCode from './components/QRCode';
 import HotelInfo from './components/HotelInfo';
 import SpaFitness from './components/SpaFitness';
 import Events from './components/Events';
+import Restaurants from './components/Restaurants';
+import Barlar from './components/Barlar';
 import PromotionalCards from './components/PromotionalCards';
 import './App.css';
 
@@ -13,6 +15,8 @@ function App() {
   const [showHotelInfo, setShowHotelInfo] = useState(false);
   const [showSpaFitness, setShowSpaFitness] = useState(false);
   const [showEvents, setShowEvents] = useState(false);
+  const [showRestaurants, setShowRestaurants] = useState(false);
+  const [showBarlar, setShowBarlar] = useState(false);
 
   const services = [
     {
@@ -38,7 +42,7 @@ function App() {
     },
     {
       id: 'restaurants',
-      title: 'Restaurants & Bars',
+      title: '---',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
       row: 2,
       width: 'third'
@@ -59,14 +63,14 @@ function App() {
     },
     {
       id: 'menu-bars',
-      title: 'Menü ve Barlar',
+      title: 'Restaurants',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop',
       row: 4,
       width: 'half'
     },
     {
       id: 'spa-wellness',
-      title: 'Spa & Wellness',
+      title: 'Barlar',
       image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=300&fit=crop',
       row: 4,
       width: 'half'
@@ -82,6 +86,10 @@ function App() {
       setShowSpaFitness(true);
     } else if (serviceId === 'spa-fitness') {
       setShowEvents(true);
+    } else if (serviceId === 'menu-bars') {
+      setShowRestaurants(true);
+    } else if (serviceId === 'spa-wellness') {
+      setShowBarlar(true);
     } else {
       console.log('Service clicked:', serviceId);
       // Burada diğer servis detay sayfalarına yönlendirme yapılabilir
@@ -132,6 +140,12 @@ function App() {
         )}
         {showEvents && (
           <Events onClose={() => setShowEvents(false)} />
+        )}
+        {showRestaurants && (
+          <Restaurants onClose={() => setShowRestaurants(false)} />
+        )}
+        {showBarlar && (
+          <Barlar onClose={() => setShowBarlar(false)} />
         )}
       </div>
     </ThemeProvider>

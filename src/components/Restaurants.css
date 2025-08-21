@@ -1,4 +1,5 @@
-.spa-fitness-overlay {
+/* Restaurants Ana Sayfa Stilleri */
+.hotel-info-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +21,7 @@
   }
 }
 
-.spa-fitness-container {
+.hotel-info-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -41,7 +42,18 @@
   }
 }
 
-.spa-fitness-header {
+@keyframes slideUpFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(30vh);
+  }
+}
+
+.hotel-info-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +82,7 @@
   background: var(--bg-tertiary);
 }
 
-.spa-fitness-header h2 {
+.hotel-info-header h2 {
   color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: 600;
@@ -102,7 +114,7 @@
   transition: all 0.3s ease;
 }
 
-.spa-fitness-content {
+.hotel-info-content {
   flex: 1;
   padding: 1.5rem;
   display: flex;
@@ -128,7 +140,7 @@
   flex: 1;
 }
 
-/* Services Grid - Spa & Fitness için tek sütun */
+/* Services Grid - Hotel Info için tek sütun */
 .services-grid {
   display: flex;
   flex-direction: column;
@@ -137,66 +149,14 @@
   align-items: center;
 }
 
-.service-card {
-  background: var(--bg-tertiary);
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-  max-width: 350px;
-  width: 100%;
-  position: relative;
+/* QR Section Container - Ana sayfadaki gibi */
+.qr-section-container {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
-
-.service-card-full {
-  flex: 0 0 100%;
-  max-width: 750px;
-}
-
-.service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px var(--shadow);
-  background: var(--bg-secondary);
-}
-
-.service-image {
-  width: 100%;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-}
-
-.service-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  filter: brightness(0.7);
-}
-
-.service-card:hover .service-image img {
-  transform: scale(1.05);
-}
-
-.service-title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.3rem;
-  color: white;
-  font-size: 0.65rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
-  z-index: 2;
-}
-
-
 
 .hotel-info-card {
   background: var(--bg-tertiary);
@@ -281,17 +241,17 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .spa-fitness-container {
+  .hotel-info-container {
     max-width: 100%;
     height: 100vh;
     margin: 0;
   }
   
-  .spa-fitness-header {
+  .hotel-info-header {
     padding: 1rem;
   }
   
-  .spa-fitness-content {
+  .hotel-info-content {
     padding: 0;
     flex-direction: column;
     height: 100%;
@@ -312,7 +272,7 @@
   }
   
   .card-image {
-    height: 180px;
+    height: 120px;
   }
   
   .card-title {
@@ -321,14 +281,18 @@
     left: 0.75rem;
     right: 0.75rem;
   }
+  
+  .qr-section-container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
-  .spa-fitness-header {
+  .hotel-info-header {
     padding: 0.75rem;
   }
   
-  .spa-fitness-content {
+  .hotel-info-content {
     padding: 0;
   }
   
@@ -344,7 +308,7 @@
   }
 }
 
-/* About Hotel Modal/Page Styles - Spa & Fitness için de kullanılacak */
+/* About Hotel Modal/Page Styles */
 .about-hotel-overlay {
   position: fixed;
   top: 0;
@@ -362,6 +326,20 @@
 .about-hotel-overlay.mobile {
   background: transparent;
   z-index: 1500;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: flex-end;
+  pointer-events: auto;
 }
 
 .about-hotel-container {
@@ -382,13 +360,22 @@ body.dark-theme .about-hotel-container {
 
 .about-hotel-container.mobile {
   background: var(--bg-primary);
-  border-radius: 0;
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100%;
-  height: 100%;
+  border-radius: 20px 20px 0 0;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  min-height: 50vh;
+  max-height: 80vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-secondary) transparent;
 }
 
 .close-button {
@@ -419,6 +406,11 @@ body.dark-theme .about-hotel-container {
   background: #333333;
   border: 1px solid #555555;
   color: white;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
 }
 
 .close-button.desktop {
@@ -435,7 +427,26 @@ body.dark-theme .about-hotel-container {
 }
 
 .about-hotel-container.mobile .about-hotel-image {
-  height: 300px;
+  height: 170px;
+  position: relative;
+}
+
+/* Daha spesifik selector ile override */
+.about-hotel-overlay.mobile .about-hotel-container.mobile .about-hotel-image {
+  height: 170px;
+}
+
+.about-hotel-container.mobile .about-hotel-image::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  z-index: 5;
 }
 
 .about-hotel-image img {
@@ -459,9 +470,11 @@ body.dark-theme .about-hotel-content {
   background: var(--bg-primary);
   color: var(--text-primary);
   flex: 1;
-  padding: 1.5rem;
-  overflow-y: auto;
+  padding: 0.02rem 1.5rem;
   border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .about-hotel-content h2 {
@@ -477,8 +490,9 @@ body.dark-theme .about-hotel-content h2 {
 }
 
 .about-hotel-container.mobile .about-hotel-content h2 {
-  font-size: 1.4rem;
+  font-size: 0.9rem;
   margin: 3rem 0 2rem 0;
+  color: var(--text-primary);
 }
 
 .about-hotel-content p {
@@ -498,9 +512,10 @@ body.dark-theme .about-hotel-content p {
 
 .about-hotel-container.mobile .about-hotel-content p {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.6rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
+  margin: 0 0 0.002rem 0;
 }
 
 .map-button {
@@ -537,14 +552,70 @@ body.dark-theme .map-button:hover {
 }
 
 .about-hotel-container.mobile .map-button {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  width: 100%;
+  background: white;
+  color: #333;
+  border: 1px solid #ddd;
+  width: 60%;
   margin-top: 2rem;
+  margin-bottom: 0;
+  align-self: center;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .about-hotel-container.mobile .map-button:hover {
   background: var(--bg-secondary);
   box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* Modal scrollbar stilleri */
+.about-hotel-container.mobile::-webkit-scrollbar {
+  width: 8px;
+}
+
+.about-hotel-container.mobile::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.about-hotel-container.mobile::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.about-hotel-container.mobile::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Button Group Styles */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.button-group .map-button {
+  margin-top: 0;
+  flex: 1;
+  max-width: 200px;
+}
+
+/* Mobile Button Group */
+.about-hotel-container.mobile .button-group {
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.about-hotel-container.mobile .button-group .map-button {
+  width: 100%;
+  max-width: none;
+  margin-top: 0;
 }

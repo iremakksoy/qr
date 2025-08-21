@@ -495,7 +495,7 @@ body.dark-theme .about-hotel-content h2 {
 
 .about-hotel-container.mobile .about-hotel-content h2 {
   font-size: 0.9rem;
-  margin: 0 0 0.005rem 0;
+  margin: 3rem 0 2rem 0;
   color: var(--text-primary);
 }
 
@@ -531,7 +531,7 @@ body.dark-theme .about-hotel-content p {
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -560,7 +560,7 @@ body.dark-theme .map-button:hover {
   color: #333;
   border: 1px solid #ddd;
   width: 60%;
-  margin-top: 0.02rem;
+  margin-top: 2rem;
   margin-bottom: 0;
   align-self: center;
   padding: 8px 20px;
