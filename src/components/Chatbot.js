@@ -18,14 +18,45 @@ const Chatbot = ({ onClose }) => {
   };
 
   const handleMediaUpload = (type) => {
+    // Mobil cihaz kontrolü
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (type === 'camera' && !isMobile) {
+      alert('Kamera özelliği sadece mobil cihazlarda kullanılabilir.');
+      setShowMediaOptions(false);
+      return;
+    }
+    
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = type === 'camera' ? 'image/*' : 'image/*';
-    input.capture = type === 'camera' ? 'environment' : undefined;
+    input.accept = 'image/*';
+    
+    // Kamera için özel ayarlar
+    if (type === 'camera' && isMobile) {
+      // Farklı tarayıcılar için farklı capture değerleri
+      try {
+        input.capture = 'environment'; // Arka kamera
+      } catch (e) {
+        // Eğer environment desteklenmiyorsa
+        input.capture = 'camera';
+      }
+    }
     
     input.onchange = (e) => {
       const file = e.target.files[0];
       if (file) {
+        // Dosya boyutu kontrolü (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Dosya boyutu 5MB\'dan küçük olmalıdır.');
+          return;
+        }
+        
+        // Dosya tipi kontrolü
+        if (!file.type.startsWith('image/')) {
+          alert('Lütfen sadece resim dosyası seçin.');
+          return;
+        }
+        
         const reader = new FileReader();
         reader.onload = (event) => {
           const newMessage = {
@@ -37,11 +68,30 @@ const Chatbot = ({ onClose }) => {
           };
           setMessages([...messages, newMessage]);
         };
+        
+        reader.onerror = () => {
+          alert('Dosya okunurken bir hata oluştu.');
+        };
+        
         reader.readAsDataURL(file);
       }
     };
     
+    // Hata yakalama
+    input.onerror = () => {
+      alert('Dosya seçilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    };
+    
+    // Input'u gizli olarak ekle ve tıkla
+    input.style.display = 'none';
+    document.body.appendChild(input);
     input.click();
+    
+    // Input'u temizle
+    setTimeout(() => {
+      document.body.removeChild(input);
+    }, 1000);
+    
     setShowMediaOptions(false);
   };
 
