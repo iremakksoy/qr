@@ -18,11 +18,11 @@ const Chatbot = ({ onClose }) => {
   };
 
   const handleMediaUpload = (type) => {
-    // Basit mobil kontrolü
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    console.log('handleMediaUpload called with type:', type);
     
-    console.log('Device type:', isMobile ? 'Mobile' : 'Desktop');
-    console.log('Upload type:', type);
+    // Mobil cihaz kontrolü
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    console.log('Is mobile device:', isMobile);
     
     // Kamera kontrolü
     if (type === 'camera' && !isMobile) {
@@ -31,53 +31,83 @@ const Chatbot = ({ onClose }) => {
       return;
     }
     
-    // Basit input oluştur
+    // Input elementini oluştur
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
+    input.style.display = 'none';
     
-    // Kamera için capture ekle
+    // Kamera için capture özelliği
     if (type === 'camera' && isMobile) {
       input.capture = 'environment';
+      console.log('Camera capture enabled');
     }
     
     // Dosya seçildiğinde
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        console.log('File selected:', file.name, file.size);
+    input.addEventListener('change', function(event) {
+      console.log('File input change event triggered');
+      const selectedFile = event.target.files[0];
+      
+      if (selectedFile) {
+        console.log('File selected:', selectedFile.name, 'Size:', selectedFile.size);
         
-        // Dosya boyutu kontrolü
-        if (file.size > 10 * 1024 * 1024) {
+        // Dosya boyutu kontrolü (10MB)
+        if (selectedFile.size > 10 * 1024 * 1024) {
           alert('Dosya boyutu 10MB\'dan küçük olmalıdır.');
           return;
         }
         
-        // Dosya okuma
+        // Dosya tipi kontrolü
+        if (!selectedFile.type.startsWith('image/')) {
+          alert('Lütfen sadece resim dosyası seçin.');
+          return;
+        }
+        
+        // FileReader ile dosyayı oku
         const reader = new FileReader();
-        reader.onload = (event) => {
-          console.log('File loaded successfully');
+        
+        reader.onload = function(e) {
+          console.log('File read successfully');
+          const imageData = e.target.result;
+          
+          // Yeni mesaj oluştur
           const newMessage = {
-            id: messages.length + 1,
+            id: Date.now(),
             text: '',
             sender: 'user',
             timestamp: new Date().toLocaleTimeString(),
-            image: event.target.result
+            image: imageData
           };
-          setMessages(prev => [...prev, newMessage]);
+          
+          // Mesajları güncelle
+          setMessages(prevMessages => [...prevMessages, newMessage]);
+          console.log('Message added with image');
         };
         
-        reader.onerror = () => {
-          console.error('FileReader error');
+        reader.onerror = function(error) {
+          console.error('FileReader error:', error);
           alert('Dosya okunurken bir hata oluştu.');
         };
         
-        reader.readAsDataURL(file);
+        // Dosyayı base64 formatında oku
+        reader.readAsDataURL(selectedFile);
+      } else {
+        console.log('No file selected');
       }
-    };
+    });
     
-    // Input'u tıkla
+    // Input'u DOM'a ekle ve tıkla
+    document.body.appendChild(input);
     input.click();
+    console.log('File input clicked');
+    
+    // Input'u temizle
+    setTimeout(() => {
+      if (input.parentNode) {
+        input.parentNode.removeChild(input);
+      }
+    }, 5000);
+    
     setShowMediaOptions(false);
   };
 
@@ -222,46 +252,46 @@ const Chatbot = ({ onClose }) => {
           <div className="chatbot-qr-section">
             <div className="qr-container">
               <div className="qr-code">
-                <svg viewBox="0 0 200 200" fill="currentColor">
-                  <rect x="10" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="70" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="100" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="130" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="160" y="10" width="20" height="20" fill="#000"/>
-                  <rect x="10" y="40" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="40" width="20" height="20" fill="#fff"/>
-                  <rect x="70" y="40" width="20" height="20" fill="#fff"/>
-                  <rect x="100" y="40" width="20" height="20" fill="#000"/>
-                  <rect x="130" y="40" width="20" height="20" fill="#fff"/>
-                  <rect x="160" y="40" width="20" height="20" fill="#000"/>
-                  <rect x="10" y="70" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="70" width="20" height="20" fill="#fff"/>
-                  <rect x="70" y="70" width="20" height="20" fill="#000"/>
-                  <rect x="100" y="70" width="20" height="20" fill="#fff"/>
-                  <rect x="130" y="70" width="20" height="20" fill="#000"/>
-                  <rect x="160" y="70" width="20" height="20" fill="#000"/>
-                  <rect x="10" y="100" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="100" width="20" height="20" fill="#fff"/>
-                  <rect x="70" y="100" width="20" height="20" fill="#fff"/>
-                  <rect x="100" y="100" width="20" height="20" fill="#000"/>
-                  <rect x="130" y="100" width="20" height="20" fill="#fff"/>
-                  <rect x="160" y="100" width="20" height="20" fill="#000"/>
-                  <rect x="10" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="70" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="100" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="130" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="160" y="130" width="20" height="20" fill="#000"/>
-                  <rect x="10" y="160" width="20" height="20" fill="#000"/>
-                  <rect x="40" y="160" width="20" height="20" fill="#fff"/>
-                  <rect x="70" y="160" width="20" height="20" fill="#fff"/>
-                  <rect x="100" y="160" width="20" height="20" fill="#000"/>
-                  <rect x="130" y="160" width="20" height="20" fill="#fff"/>
-                  <rect x="160" y="160" width="20" height="20" fill="#000"/>
-                </svg>
+                {/* Geçici QR Kod - Mobil Test İçin */}
+                <div style={{
+                  width: '200px',
+                  height: '200px',
+                  backgroundColor: '#fff',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '20px',
+                  borderRadius: '8px',
+                  border: '2px solid #000'
+                }}>
+                  <div style={{
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    marginBottom: '10px'
+                  }}>
+                    MOBİL TEST
+                  </div>
+                  <div style={{
+                    fontSize: '10px',
+                    textAlign: 'center',
+                    wordBreak: 'break-all',
+                    lineHeight: '1.2'
+                  }}>
+                    http://192.168.1.120:3000
+                  </div>
+                  <div style={{
+                    fontSize: '8px',
+                    textAlign: 'center',
+                    marginTop: '10px',
+                    color: '#666'
+                  }}>
+                    Bu adresi mobilde açın
+                  </div>
+                </div>
               </div>
-              <p className="qr-text">For the best experience, scan the QR code and switch to your phone</p>
+              <p className="qr-text">Mobil test için yukarıdaki adresi telefonunuzda açın</p>
             </div>
           </div>
         </div>
