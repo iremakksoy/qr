@@ -9,6 +9,7 @@ import Events from './components/Events';
 import Restaurants from './components/Restaurants';
 import Barlar from './components/Barlar';
 import PromotionalCards from './components/PromotionalCards';
+import Chatbot from './components/Chatbot';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [showEvents, setShowEvents] = useState(false);
   const [showRestaurants, setShowRestaurants] = useState(false);
   const [showBarlar, setShowBarlar] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
 
   const services = [
     {
@@ -86,6 +88,8 @@ function App() {
       setShowSpaFitness(true);
     } else if (serviceId === 'spa-fitness') {
       setShowEvents(true);
+    } else if (serviceId === 'restaurants') {
+      setShowChatbot(true);
     } else if (serviceId === 'menu-bars') {
       setShowRestaurants(true);
     } else if (serviceId === 'spa-wellness') {
@@ -146,6 +150,10 @@ function App() {
         )}
         {showBarlar && (
           <Barlar onClose={() => setShowBarlar(false)} />
+        )}
+        
+        {showChatbot && (
+          <Chatbot onClose={() => setShowChatbot(false)} />
         )}
       </div>
     </ThemeProvider>
