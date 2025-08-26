@@ -12,6 +12,8 @@ const Chatbot = ({ onClose }) => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [showMediaOptions, setShowMediaOptions] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageDescription, setImageDescription] = useState('');
 
   const handleClose = () => {
     onClose();
@@ -70,18 +72,11 @@ const Chatbot = ({ onClose }) => {
           console.log('File read successfully');
           const imageData = e.target.result;
           
-          // Yeni mesaj oluştur
-          const newMessage = {
-            id: Date.now(),
-            text: '',
-            sender: 'user',
-            timestamp: new Date().toLocaleTimeString(),
-            image: imageData
-          };
-          
-          // Mesajları güncelle
-          setMessages(prevMessages => [...prevMessages, newMessage]);
-          console.log('Message added with image');
+          // Seçilen resmi state'e kaydet
+          setSelectedImage(imageData);
+          setImageDescription('');
+          setInputMessage('');
+          console.log('Image selected and ready for description');
         };
         
         reader.onerror = function(error) {
@@ -112,21 +107,25 @@ const Chatbot = ({ onClose }) => {
   };
 
   const handleSendMessage = () => {
-    if (inputMessage.trim()) {
+    // Resim seçiliyse (açıklama olsun veya olmasın) veya sadece metin varsa gönder
+    if (selectedImage || inputMessage.trim()) {
       const newMessage = {
-        id: messages.length + 1,
-        text: inputMessage,
+        id: Date.now(),
+        text: selectedImage ? imageDescription : inputMessage,
         sender: 'user',
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
+        image: selectedImage || null
       };
       
       setMessages([...messages, newMessage]);
       setInputMessage('');
+      setSelectedImage(null);
+      setImageDescription('');
       
       // Simulate bot response
       setTimeout(() => {
         const botResponse = {
-          id: messages.length + 2,
+          id: Date.now() + 1,
           text: "Mesajınız için teşekkürler! En kısa sürede size dönüş yapacağız.",
           sender: 'bot',
           timestamp: new Date().toLocaleTimeString()
@@ -140,6 +139,20 @@ const Chatbot = ({ onClose }) => {
     if (e.key === 'Enter') {
       handleSendMessage();
     }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setImageDescription('');
+  };
+
+  const isSendDisabled = () => {
+    // Resim varsa her zaman gönderilebilir (açıklama olsun veya olmasın)
+    if (selectedImage) {
+      return false;
+    }
+    // Resim yoksa sadece metin varsa gönderilebilir
+    return !inputMessage.trim();
   };
 
   return (
@@ -191,6 +204,34 @@ const Chatbot = ({ onClose }) => {
               ))}
             </div>
 
+            {/* Selected Image Preview */}
+            {selectedImage && (
+              <div className="selected-image-preview">
+                <div className="image-preview-container">
+                  <img src={selectedImage} alt="Selected" />
+                  <button 
+                    className="remove-image-btn"
+                    onClick={handleRemoveImage}
+                    aria-label="Remove image"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                  </button>
+                </div>
+                <div className="image-description-container">
+                  <textarea
+                    placeholder="Bu resim hakkında ne sormak istiyorsunuz?"
+                    value={imageDescription}
+                    onChange={(e) => setImageDescription(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    className="image-description-input"
+                    rows="2"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Input Area */}
             <div className="chatbot-input">
               <button 
@@ -227,18 +268,20 @@ const Chatbot = ({ onClose }) => {
                 </div>
               )}
               
-              <input
-                type="text"
-                placeholder="Mesajınızı yazın..."
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="chatbot-input-field"
-              />
+              {!selectedImage && (
+                <input
+                  type="text"
+                  placeholder="Mesajınızı yazın..."
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="chatbot-input-field"
+                />
+              )}
               <button 
                 className="chatbot-send"
                 onClick={handleSendMessage}
-                disabled={!inputMessage.trim()}
+                disabled={isSendDisabled()}
                 aria-label="Send message"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
